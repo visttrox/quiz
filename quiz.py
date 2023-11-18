@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt, QCoreApplication, QEvent, pyqtSignal
+from PyQt5.QtCore import Qt, QCoreApplication, QEvent, pyqtSignal, QSize
 from PyQt5.QtWidgets import (
     QApplication,
     QWidget,
@@ -10,7 +10,6 @@ from PyQt5.QtWidgets import (
     QLabel,
     QDesktopWidget,
     QMessageBox,
-
 )
 from PyQt5 import QtGui
 import json, sys
@@ -90,7 +89,8 @@ class Quiz(QWidget):
         self.push_button_fifteen.clicked.connect(lambda: self.set_counter_question(15))
         self.push_button_thirty.clicked.connect(lambda: self.set_counter_question(30))
         self.resized.connect(self.resize_win)
-        
+
+        self.setStyleSheet('QWidget{background-image: url(fon.png)}')  
 
 
     def resizeEvent(self, event):
@@ -106,6 +106,7 @@ class Quiz(QWidget):
         self.height_win = int(QDesktopWidget().screenGeometry(-1).height()*0.5)
         self.resize(self.width_win, self.height_win)
         self.move((self.width_screen-self.width())//2, (self.height_screen-self.height())//2)
+        self.setWindowIcon(QtGui.QIcon('icon.png'))
 
 
     def keyPressEvent(self, e):
@@ -180,7 +181,6 @@ class Quiz(QWidget):
     
 def main():
     app = QApplication(sys.argv)
-    app.setWindowIcon(QtGui.QIcon('icon.png'))
     quiz = Quiz()
     quiz.show()
     sys.exit(app.exec_())
